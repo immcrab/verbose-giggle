@@ -1,1 +1,288 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>WebCraft AI</title><link rel="stylesheet" href="styles.css"></head><body><div class='card'><h1>WebCraft AI</h1><a href='login.html'>Login</a></div></body></html>
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebCraft AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    /* Custom glow effects similar to modern SaaS landing pages */
+    .glow-bg {
+      position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(168,85,247,0.05) 50%, transparent 100%);
+      z-index: -1; pointer-events: none; filter: blur(60px);
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col relative overflow-x-hidden antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
+  
+  <div class="glow-bg"></div>
+
+  <header class="border-b border-slate-800/60 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('landing-view')">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        </div>
+        <span class="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">WebCraft AI</span>
+      </div>
+      <div id="nav-user-info" class="hidden flex items-center space-x-4">
+        <span id="nav-email" class="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full font-medium"></span>
+        <button id="nav-logout" class="text-xs text-slate-400 hover:text-white font-medium transition-colors">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-4 max-w-6xl w-full mx-auto my-6">
+
+    <div id="landing-view" class="view-section w-full text-center py-12 max-w-2xl">
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400">
+        Build websites using artificial intelligence.
+      </h1>
+      <p class="text-slate-400 text-lg mb-8 max-w-lg mx-auto font-light leading-relaxed">
+        Prompt, iterate, and deploy instantly. Experience the next generation of visual composition.
+      </p>
+      <div>
+        <button onclick="navigateTo('login-view')" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-slate-950 font-semibold text-sm hover:bg-slate-100 transition-all duration-200 shadow-xl shadow-white/5 group">
+          Get Started 
+          <svg class="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="login-view" class="view-section hidden w-full max-w-md">
+      <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 backdrop-blur-xl shadow-2xl relative">
+        <h2 class="text-2xl font-bold tracking-tight text-white mb-2 text-center">Welcome back</h2>
+        <p class="text-slate-400 text-sm mb-6 text-center">Sign in to access your dashboard and builder tokens.</p>
+        <button id="googleLogin" class="w-full flex items-center justify-center space-x-3 bg-white hover:bg-slate-100 text-slate-950 py-3 px-4 rounded-xl font-medium transition-all shadow-lg shadow-white/5 text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.85z"/>
+            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.85c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="dashboard-view" class="view-section hidden w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="md:col-span-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl h-fit">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">Account Overview</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="text-xs text-slate-400 mb-0.5">Active Account</div>
+            <div id="dashboard-email" class="text-sm font-semibold truncate text-slate-200">...</div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/60">
+            <div class="text-xs text-slate-400 mb-0.5">Available Balance</div>
+            <div id="dashboard-credits" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">...</div>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-2 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl flex flex-col justify-between min-h-[220px]">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-2">Projects</h2>
+          <p class="text-slate-400 text-sm leading-relaxed">Create and manage your AI-driven website wireframes. High-fidelity layouts generate in seconds.</p>
+        </div>
+        <div class="mt-6">
+          <button onclick="navigateTo('builder-view')" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-xl bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/10">
+            <span>Launch New Project</span>
+            <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="builder-view" class="view-section hidden w-full max-w-4xl bg-slate-900/40 border border-slate-800/80 rounded-2xl overflow-hidden backdrop-blur-xl flex flex-col h-[70vh]">
+      <div class="px-6 py-4 border-b border-slate-800/60 bg-slate-900/20 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <button onclick="navigateTo('dashboard-view')" class="text-slate-400 hover:text-white transition-colors p-1 hover:bg-slate-800/50 rounded-lg">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <h2 class="text-md font-semibold text-white">AI Web Interface Builder</h2>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer select-none">
+          <input type="checkbox" id="planMode" class="sr-only peer">
+          <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-slate-400 peer-checked:after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-indigo-600"></div>
+          <span class="ml-2 text-xs font-medium text-slate-400">Plan Mode <span class="text-[10px] opacity-60">(0.1 vs 1 cr)</span></span>
+        </label>
+      </div>
+
+      <div class="flex-1 p-6 overflow-y-auto bg-slate-950/40 space-y-4" id="chat">
+        <div class="text-center py-12 text-slate-500 text-sm max-w-sm mx-auto">
+          <div class="h-10 w-10 mx-auto rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          Your JSON layouts or generation logs will render inside this container module. Provide a prompt beneath to begin.
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-800/60 bg-slate-900/30">
+        <div class="flex items-center space-x-3 bg-slate-950/80 border border-slate-800 rounded-xl p-2 focus-within:border-indigo-500 transition-colors">
+          <input id="prompt" type="text" placeholder="Design a responsive SaaS navbar using purple hues..." class="flex-1 bg-transparent border-0 outline-none focus:ring-0 text-sm px-2 text-white placeholder-slate-500">
+          <button id="send" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-lg transition-all flex items-center space-x-1">
+            <span>Send</span>
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
+    &copy; 2026 WebCraft AI Framework. Powered by Groq & Firebase.
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+    // 1. Configs & Globals
+    const firebaseConfig = {
+      apiKey: 'AIzaSyD5xI8GOG1lEKXBCunwq6qekg3QQOSijZ8',
+      authDomain: 'sitedropio.firebaseapp.com',
+      projectId: 'sitedropio'
+    };
+    export const GROQ_API_KEY = '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';
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUserDoc = null;
+
+    // Toast Utility Function
+    const toast = m => alert(m);
+
+    // Front-end UI SPA View Router
+    window.navigateTo = function(viewId) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+      const activeView = document.getElementById(viewId);
+      if(activeView) activeView.classList.remove('hidden');
+    }
+
+    // 2. Groq Processing Setup
+    async function askGroq(msg) {
+      const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + GROQ_API_KEY
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [{ role: 'user', content: msg }]
+        })
+      });
+      return await r.json();
+    }
+
+    // 3. User State Change Core Handler
+    onAuthStateChanged(auth, async u => {
+      const navUserInfo = document.getElementById('nav-user-info');
+      const navEmail = document.getElementById('nav-email');
+      
+      if (!u) {
+        if(navUserInfo) navUserInfo.classList.add('hidden');
+        currentUserDoc = null;
+        navigateTo('landing-view');
+        return;
+      }
+
+      // Populate navigation info
+      if(navEmail) navEmail.textContent = u.email;
+      if(navUserInfo) navUserInfo.classList.remove('hidden');
+
+      // Fetch Firestore state
+      const snap = await getDoc(doc(db, 'users', u.uid));
+      currentUserDoc = snap.data();
+
+      // Mirror state across DOM components
+      let dashEmail = document.getElementById('dashboard-email');
+      if (dashEmail) dashEmail.textContent = u.email;
+      
+      let dashCredits = document.getElementById('dashboard-credits');
+      if (dashCredits) dashCredits.textContent = currentUserDoc.credits + ' credits';
+
+      navigateTo('dashboard-view');
+    });
+
+    // 4. Action Handlers
+    // Google Authentication Flow
+    const loginBtn = document.getElementById('googleLogin');
+    if (loginBtn) {
+      loginBtn.onclick = async () => {
+        try {
+          const r = await signInWithPopup(auth, new GoogleAuthProvider());
+          const ref = doc(db, 'users', r.user.uid);
+          const s = await getDoc(ref);
+          if (!s.exists()) {
+            await setDoc(ref, { credits: 50, projects: [], createdAt: Date.now() });
+          }
+        } catch (err) {
+          toast('Authentication failed: ' + err.message);
+        }
+      };
+    }
+
+    // Builder Prompt Operations Engine
+    const sendBtn = document.getElementById('send');
+    if (sendBtn) {
+      sendBtn.onclick = async () => {
+        if (!auth.currentUser || !currentUserDoc) return;
+        
+        let cost = document.getElementById('planMode').checked ? 0.1 : 1;
+        if (currentUserDoc.credits < cost) return toast('Insufficient credits');
+
+        let p = document.getElementById('prompt').value;
+        if (!p.trim()) return toast('Please type a structured prompt.');
+
+        // Loading Indicator setup
+        const chatBox = document.getElementById('chat');
+        chatBox.innerHTML = `<div class="text-indigo-400 font-mono text-xs animate-pulse">Running AI pipeline inference...</div>`;
+
+        try {
+          let res = await askGroq(p);
+          let newCredits = currentUserDoc.credits - cost;
+          
+          await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+            credits: newCredits,
+            projects: arrayUnion(p)
+          });
+
+          // Mutate local session state wrapper
+          currentUserDoc.credits = newCredits;
+          let dashCredits = document.getElementById('dashboard-credits');
+          if (dashCredits) dashCredits.textContent = newCredits + ' credits';
+
+          chatBox.innerHTML = `<pre class="text-xs bg-slate-950 p-4 border border-slate-800 rounded-xl overflow-x-auto text-emerald-400 font-mono">${JSON.stringify(res, null, 2)}</pre>`;
+        } catch (err) {
+          chatBox.innerHTML = `<div class="text-rose-400 text-xs font-mono">Error: ${err.message}</div>`;
+        }
+      };
+    }
+
+    // Global Log Out Action hooks
+    const logoutBtn = document.getElementById('nav-logout');
+    if (logoutBtn) {
+      logoutBtn.onclick = () => signOut(auth);
+    }
+  </script>
+</body>
+</html>
