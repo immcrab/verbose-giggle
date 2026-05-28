@@ -1,0 +1,1 @@
+export const toast=m=>alert(m);

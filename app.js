@@ -1,0 +1,5 @@
+import {auth,db} from './firebase.js'; import {onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js'; import {doc,getDoc,updateDoc,arrayUnion} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js'; import {askGroq} from './groq.js';
+onAuthStateChanged(auth,async u=>{if(!u)return; const snap=await getDoc(doc(db,'users',u.uid)); const d=snap.data(); let e=document.getElementById('email'); if(e)e.textContent=u.email; let c=document.getElementById('credits'); if(c)c.textContent='Credits: '+d.credits;
+const send=document.getElementById('send'); if(send) send.onclick=async()=>{let cost=document.getElementById('planMode').checked?0.1:1; if(d.credits<cost)return alert('Insufficient credits'); let p=document.getElementById('prompt').value; let res=await askGroq(p); await updateDoc(doc(db,'users',u.uid),{credits:d.credits-cost,projects:arrayUnion(p)}); document.getElementById('chat').innerText=JSON.stringify(res,null,2);};
+let lo=document.getElementById('logout'); if(lo) lo.onclick=()=>signOut(auth).then(()=>location='login.html');
+});
